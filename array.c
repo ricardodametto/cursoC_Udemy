@@ -5,7 +5,7 @@ int main(int argc, char const *argv[])
     int numeros [3][4] = {
     {1,2,3,4},{5,6,7,8},{9,10,11,12} //arrays bidimensionais [quantos de elementos] [quantos arrays]
     };
-    printf("%d\n",numeros[1][2]);// qual array? [] qual posiçao do elemento?
+    printf("%d\n",numeros[1][2]);// []qual array?  []qual posiçao do elemento?
     int qtdnumero = sizeof(numeros) / sizeof(numeros[0]);
     printf("Quantidade total de Arrays: %d\n",qtdnumero);
     

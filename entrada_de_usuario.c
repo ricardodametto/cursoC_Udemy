@@ -1,7 +1,7 @@
 #include<stdio.h>
 float calcula_desconto(float vlr_bruto, int percentual_desc){
 
-    return vlr_bruto - ((float)percentual_desc / 100) * (vlr_bruto); //funcção para calculo de desconto
+    return vlr_bruto - ((float)percentual_desc / 100) * (vlr_bruto); //função para calculo de desconto
 
 }
 
