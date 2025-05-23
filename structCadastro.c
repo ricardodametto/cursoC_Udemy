@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#define CARTASPORCADASTRO 2
 typedef struct{
 
     //Variaveis que compoem os campos cadastrais das cartas
@@ -18,33 +19,47 @@ typedef struct{
     long long int superpoder;
 }Cadastro;
 
+//prototipos da função
+float calcula_renda_per_capita(long long int pib, float area);
+float calcula_densidade(int pop , float area);
+long double calcula_densidadeInversa(float area, int populacao);
+long long int calcula_superpoder(int populacao, float area, long long int pib, int pontosTur);
+
+
+
+
+
 //Funcao para chamar printf de entrada de dados digitados pelo usuario
 //criei uma funcao void passei como referencia um ponteiro * para a struct Cadastro
-void dados_entrada(Cadastro *p)
-    {
-        printf("Digite a letra identificadora do ESTADO(De A a H) :");
-        scanf("%c",&p->estado); 
-        while (getchar() != '\n');
-        printf("Digite o código da carta : ");
-        scanf("%s",p-> codigoCarta);
-    
-        while (getchar() != '\n');
-   
+void dados_entrada(Cadastro cadastraCarta[],int i ){
+
+    for(i=0; i < 2; i++){
+        printf("Entre com o ID da carta(Uma letra de A a H): ");
+        scanf(" %c",&cadastraCarta[i].estado);
+        printf("Digite o código da carta(Sendo válidos de A01 a H09): ");
+        scanf("%s",cadastraCarta[i].codigoCarta);
         printf("Digite o nome da cidade: ");
-        fgets(p->nomeCidade,50,stdin);
-        fflush(stdin);
+        scanf(" %49[^\n]",cadastraCarta[i].nomeCidade);
+        while(getchar() != '\n');
+        printf("Digite a populçao total: ");
+        scanf("%d",&cadastraCarta[i].total_pop);
         printf("Digite a extensão territorial em km2: ");
-        scanf("%f",&p->area);
-        printf("Digite a quantidade total de habitantes:");
-        scanf("%d",&p->total_pop);
-        printf("Digite o PIB total: ");
-        scanf("%lld",&p->total_pib);
-        printf("Digite a quantidade de pontos turísticos: ");
-        scanf("%d",&p->total_pontosTur);
+        scanf("%f",&cadastraCarta[i].area);
+        printf("Digite o PIB anual em Bilhões de R$: ");
+        scanf("%lld",&cadastraCarta[i].total_pib);
+        printf("Digite a quantidade total de pontos turísticos: ");
+        scanf("%d",&cadastraCarta[i].total_pontosTur);
+        while(getchar() != '\n');
+        printf("\n\n");
     }
 
+}
+    
+        
+    
 
-void exibirDados(Cadastro *c)
+
+/*void exibirDados(Cadastro *c)
 {
        printf("\n--- Resultados das Cartas ---\n");
        printf("Estado : ",&c->estado);
@@ -56,10 +71,22 @@ void exibirDados(Cadastro *c)
        printf("Total de pontos turísticos: ",&c->total_pontosTur);
 
 
-}
+}*/
 
 
 //Função para calcular renda per capita
+
+
+int main(int argc, char const *argv[])
+{
+    int tamanho = CARTASPORCADASTRO;//equivale a variavel de controle i dentro do for,
+    Cadastro cartas[2];//equivale a variavel tipo struct dentro da função
+    dados_entrada(cartas,tamanho);//parametros: 'cartas' variavel tipo struct equivale a 'cadastra cartas[]'
+                                  //parametro: 'tamanho recebe  a define 'CARTASPORCADASTRO = 2', tamanh equivale ao contéúdo da variavel de controle 'i'
+    return 0; 
+}
+
+
 float calcula_renda_per_capita(long long int pib, float area){
     return (float)pib / area;
 }
@@ -75,42 +102,6 @@ long double calcula_densidadeInversa(float area, int populacao){
 }
 
 //Função para calcular SUPERPODER das cartas, vence esse atributo a carta que tiver o MAIOR valor calculado
-long long int calcula_superpoder(int populacao, float area, long long int pib, int pontosTur, long double densidadepopinversa ){
-    return (long long int) populacao + area + pib + pontosTur + densidadepopinversa;
-}
-
-
-int main(int argc, char const *argv[])
-{
-    
-    
-    printf("Carta 1\n");
-    Cadastro carta1;
-    dados_entrada(&carta1);
-    
-    printf("\n\n");
-    
-    /*printf("Carta 2\n");
-    Cadastro carta2;
-    dados_entrada(&carta2);*/
- 
-    //Chamada das funções para realização de todos calculos necessários para regra de negócio do jogo
-     carta1.renda_percapita = calcula_renda_per_capita(carta1.total_pib, carta1.total_pop);
-     carta1.densidade_demografica = calcula_densidade(carta1.total_pop,carta1.area);
-     carta1.densidade_inversa = calcula_densidadeInversa(carta1.area,carta1.total_pop);
-     carta1.superpoder = calcula_superpoder(carta1.total_pop, carta1.area, carta1.total_pib, carta1.total_pontosTur,carta1.densidade_inversa);
-     
-     /*carta2.renda_percapita = calcula_renda_per_capita(carta2.total_pib, carta2.total_pop);
-     carta2.densidade_demografica = calcula_densidade(carta2.total_pop,carta2.area);
-     carta2.densidade_inversa = calcula_densidadeInversa(carta2.area,carta2.total_pop);
-     carta2.superpoder = calcula_superpoder(carta2.total_pop, carta2.area, carta2.total_pib, carta2.total_pontosTur,carta2.densidade_inversa);*/
-     
-     
-     exibirDados(&carta1);
-     /*printf("%.2f\n",carta1.area);
-     printf("%d\n",carta1.total_pop);
-
-     printf("RESULTADO SUPERPODER: %lld\n",carta1.superpoder);
-     printf("RESULTADO DENSIDADE DEMOGRAFICA: %.2f /KM2\n",carta1.densidade_demografica);*/
-    return 0; 
+long long int calcula_superpoder(int populacao, float area, long long int pib, int pontosTur){
+    return ((long long int) populacao + area + pib + pontosTur);
 }
