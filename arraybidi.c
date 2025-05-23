@@ -14,7 +14,8 @@ int main(int argc, char const *argv[])
        for(j=0; j < 3; j++){
         //printf("Insira o elemento da linha %d, coluna %d\n",i,j); 
         printf(" %d", mat[i][j]);  
-      }
+        //scanf("%d",&mat[i][j]);  
+    }
       printf("\n");  
    }
     
