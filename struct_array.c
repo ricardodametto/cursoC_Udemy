@@ -12,7 +12,7 @@ typedef struct{
    float densidadeDemografica;
    long double densidadeInversa;
    float rendaPercapita;
-   long long int superpoder;
+   long long int Superpoder;
 
 }Cadastro;
 
