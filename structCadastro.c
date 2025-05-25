@@ -25,10 +25,6 @@ float calcula_densidade(int pop , float area);
 long double calcula_densidadeInversa(float area, int populacao);
 long long int calcula_superpoder(int populacao, float area, long long int pib, int pontosTur);
 
-
-
-
-
 //Funcao para chamar printf de entrada de dados digitados pelo usuario
 //criei uma funcao void passei como referencia um ponteiro * para a struct Cadastro
 void dados_entrada(Cadastro cadastraCarta[],int i ){
@@ -55,23 +51,21 @@ void dados_entrada(Cadastro cadastraCarta[],int i ){
 
 }
     
-        
+void exibirDados(Cadastro exibecarta[], int i){
+    for(i = 0; i < 2; i++){
+
+    printf("\n--- Resultados das Cartas ---\n");
+       printf("Estado : %c\n",exibecarta[i].estado);
+       printf("Codigo da carta: %s\n",exibecarta[i].codigoCarta);
+       printf("Nome da cidade: %s\n",exibecarta[i].nomeCidade);
+       printf("Populção total: %d\n",exibecarta[i].total_pop);
+       printf("Extensão territorial: %f\n",exibecarta[i].area," Habitantes/km2");
+       printf("PIB anual: %lld\n",exibecarta[i].total_pib);
+       printf("Total de pontos turísticos: %d \n",exibecarta[i].total_pontosTur);
     
+    }
+}
 
-
-/*void exibirDados(Cadastro *c)
-{
-       printf("\n--- Resultados das Cartas ---\n");
-       printf("Estado : ",&c->estado);
-       printf("Codigo da carta: ",c->codigoCarta);
-       printf("Nome da cidade: ",c->nomeCidade);
-       printf("Populção total: ",&c->total_pop);
-       printf("Extensão territorial: ",&c->area," Habitantes/km2");
-       printf("PIB anual: ",&c->total_pib);
-       printf("Total de pontos turísticos: ",&c->total_pontosTur);
-
-
-}*/
 
 
 //Função para calcular renda per capita
@@ -79,13 +73,14 @@ void dados_entrada(Cadastro cadastraCarta[],int i ){
 
 int main(int argc, char const *argv[])
 {
-    int tamanho = CARTASPORCADASTRO;//equivale a variavel de controle i dentro do for,
-    Cadastro cartas[2];//equivale a variavel tipo struct dentro da função
-    dados_entrada(cartas,tamanho);//parametros: 'cartas' variavel tipo struct equivale a 'cadastra cartas[]'
-                                  //parametro: 'tamanho recebe  a define 'CARTASPORCADASTRO = 2', tamanh equivale ao contéúdo da variavel de controle 'i'
+    //equivale a variavel de controle i dentro do for,
+ Cadastro cartas[2];//equivale a variavel tipo struct dentro da função
+    dados_entrada(cartas,CARTASPORCADASTRO);//parametros: 'cartas' variavel tipo struct equivale a 'cadastra cartas[]'
+    exibirDados(cartas,CARTASPORCADASTRO);                             //parametro: 'tamanho recebe  a define 'CARTASPORCADASTRO = 2', tamanh equivale ao contéúdo da variavel de controle 'i'
     return 0; 
 }
 
+//Funções e suas assinaturas
 
 float calcula_renda_per_capita(long long int pib, float area){
     return (float)pib / area;
